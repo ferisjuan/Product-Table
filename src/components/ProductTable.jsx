@@ -8,8 +8,7 @@ var ProductTable  =React.createClass({
     var rows = [];
     var lastCat = null;
 
-    this.props.info.forEach(function (el, index) {
-
+    this.props.products.forEach(function (el, index) {
       if(lastCat !== el.category){
         rows.push(<ProductCategoryRow key={index+el} category={el.category}/>)
       }

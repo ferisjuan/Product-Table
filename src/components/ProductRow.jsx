@@ -4,10 +4,10 @@ var ProductRow = React.createClass({
 	render(){
 		var name;
 
-		if(this.props.info.stocked){
-			name = <td>{this.props.info.name}</td>
+		if(this.props.product.stocked){
+			name = <td>{this.props.product.name}</td>
 		}else {
-			name = <td style={{color: 'red'}}>{this.props.info.name}</td>
+			name = <td style={{color: 'red'}}>{this.props.product.name}</td>
 		}
 
 		return(
@@ -15,7 +15,7 @@ var ProductRow = React.createClass({
 				<th>
 					{name}
 				</th>
-        <td>{this.props.info.price}</td>
+        <td>{this.props.product.price}</td>
       </tr>
 		);
 	}

@@ -3,7 +3,7 @@ var React = require('react');
 var SearchBar = require('./SearchBar.jsx');
 var ProductTable = require('./ProductTable.jsx');
 
-var info = [
+var products = [
   {category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"},
   {category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball"},
   {category: "Sporting Goods", price: "$29.99", stocked: false, name: "Basketball"},
@@ -17,7 +17,7 @@ var FilterableProductTable = React.createClass({
     return(
       <div className="">
         <SearchBar />
-        <ProductTable info={info} />
+        <ProductTable products={products} />
       </div>
     );
   }

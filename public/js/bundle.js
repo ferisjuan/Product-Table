@@ -20157,7 +20157,7 @@ var React = require('react');
 var SearchBar = require('./SearchBar.jsx');
 var ProductTable = require('./ProductTable.jsx');
 
-var info = [{ category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football" }, { category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball" }, { category: "Sporting Goods", price: "$29.99", stocked: false, name: "Basketball" }, { category: "Electronics", price: "$99.99", stocked: true, name: "iPod Touch" }, { category: "Electronics", price: "$399.99", stocked: false, name: "iPhone 5" }, { category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7" }];
+var products = [{ category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football" }, { category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball" }, { category: "Sporting Goods", price: "$29.99", stocked: false, name: "Basketball" }, { category: "Electronics", price: "$99.99", stocked: true, name: "iPod Touch" }, { category: "Electronics", price: "$399.99", stocked: false, name: "iPhone 5" }, { category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7" }];
 
 var FilterableProductTable = React.createClass({
   displayName: 'FilterableProductTable',
@@ -20167,7 +20167,7 @@ var FilterableProductTable = React.createClass({
       'div',
       { className: '' },
       React.createElement(SearchBar, null),
-      React.createElement(ProductTable, { info: info })
+      React.createElement(ProductTable, { products: products })
     );
   }
 });
@@ -20208,17 +20208,17 @@ var ProductRow = React.createClass({
 	render() {
 		var name;
 
-		if (this.props.info.stocked) {
+		if (this.props.product.stocked) {
 			name = React.createElement(
 				'td',
 				null,
-				this.props.info.name
+				this.props.product.name
 			);
 		} else {
 			name = React.createElement(
 				'td',
 				{ style: { color: 'red' } },
-				this.props.info.name
+				this.props.product.name
 			);
 		}
 
@@ -20233,7 +20233,7 @@ var ProductRow = React.createClass({
 			React.createElement(
 				'td',
 				null,
-				this.props.info.price
+				this.props.product.price
 			)
 		);
 	}
@@ -20254,8 +20254,7 @@ var ProductTable = React.createClass({
     var rows = [];
     var lastCat = null;
 
-    this.props.info.forEach(function (el, index) {
-
+    this.props.products.forEach(function (el, index) {
       if (lastCat !== el.category) {
         rows.push(React.createElement(ProductCategoryRow, { key: index + el, category: el.category }));
       }
