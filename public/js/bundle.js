@@ -20178,49 +20178,65 @@ module.exports = FilterableProductTable;
 var React = require('react');
 
 var ProductCategoryRow = React.createClass({
-  displayName: 'ProductCategoryRow',
+  displayName: "ProductCategoryRow",
 
   render() {
     return React.createElement(
-      'tr',
+      "tr",
       null,
       React.createElement(
-        'th',
-        null,
+        "th",
+        { colSpan: "2", style: { marginTop: 20 } },
         React.createElement(
-          'strong',
+          "strong",
           null,
-          this.props.info.category
+          this.props.category
         )
       )
     );
   }
 });
 
+module.exports = ProductCategoryRow;
+
 },{"react":170}],173:[function(require,module,exports){
 var React = require('react');
 
 var ProductRow = React.createClass({
-  displayName: 'ProductRow',
+	displayName: 'ProductRow',
 
-  render() {
-    var styles = this.props.info.stocked ? { color: 'black' } : { color: 'red' };
+	render() {
+		var name;
 
-    return React.createElement(
-      'tr',
-      { className: '' },
-      React.createElement(
-        'td',
-        { style: styles },
-        this.props.info.name
-      ),
-      React.createElement(
-        'td',
-        null,
-        this.props.info.price
-      )
-    );
-  }
+		if (this.props.info.stocked) {
+			name = React.createElement(
+				'td',
+				null,
+				this.props.info.name
+			);
+		} else {
+			name = React.createElement(
+				'td',
+				{ style: { color: 'red' } },
+				this.props.info.name
+			);
+		}
+
+		return React.createElement(
+			'tr',
+			null,
+			React.createElement(
+				'th',
+				null,
+				name
+			),
+			React.createElement(
+				'td',
+				null,
+				this.props.info.price
+			)
+		);
+	}
 });
 
 module.exports = ProductRow;
@@ -20235,13 +20251,46 @@ var ProductTable = React.createClass({
   displayName: 'ProductTable',
 
   render() {
-    var createGroup = function (el, index) {
-      return React.createElement(ProductRow, { key: index + el, info: el });
-    };
+    var rows = [];
+    var lastCat = null;
+
+    this.props.info.forEach(function (el, index) {
+
+      if (lastCat !== el.category) {
+        rows.push(React.createElement(ProductCategoryRow, { key: index + el, category: el.category }));
+      }
+      console.log(index);
+
+      rows.push(React.createElement(ProductRow, { key: index + el, product: el }));
+      lastCat = el.category;
+    });
+
     return React.createElement(
       'table',
-      { className: '' },
-      this.props.info.map(createGroup)
+      { className: 'table' },
+      React.createElement(
+        'thead',
+        null,
+        React.createElement(
+          'tr',
+          null,
+          React.createElement(
+            'th',
+            null,
+            'Description'
+          ),
+          React.createElement(
+            'th',
+            null,
+            'Price'
+          )
+        )
+      ),
+      React.createElement(
+        'tbody',
+        null,
+        rows
+      )
     );
   }
 });

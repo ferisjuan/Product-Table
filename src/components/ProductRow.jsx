@@ -2,11 +2,19 @@ var React = require('react');
 
 var ProductRow = React.createClass({
 	render(){
-    var styles = this.props.info.stocked ? {color: 'black'} : {color: 'red'};
+		var name;
+
+		if(this.props.info.stocked){
+			name = <td>{this.props.info.name}</td>
+		}else {
+			name = <td style={{color: 'red'}}>{this.props.info.name}</td>
+		}
 
 		return(
-      <tr className="">
-        <td style={styles}>{this.props.info.name}</td>
+      <tr>
+				<th>
+					{name}
+				</th>
         <td>{this.props.info.price}</td>
       </tr>
 		);
