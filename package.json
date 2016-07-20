@@ -1,0 +1,34 @@
+{
+  "name": "react-product-table",
+  "version": "1.0.0",
+  "description": "A simple product table made with react",
+  "main": "main.js",
+  "scripts": {
+    "start": "watchify src/main.jsx -v -t [babelify --presets [ react ] ] -o public/js/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ferisjuan/Product-Table.git"
+  },
+  "keywords": [
+    "react",
+    "product",
+    "table"
+  ],
+  "author": "jcf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ferisjuan/Product-Table/issues"
+  },
+  "homepage": "https://github.com/ferisjuan/Product-Table#readme",
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1"
+  },
+  "devDependencies": {
+    "babel-preset-react": "^6.11.1",
+    "babelify": "^7.3.0",
+    "watchify": "^3.7.0"
+  }
+}
