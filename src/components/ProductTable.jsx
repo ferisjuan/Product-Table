@@ -9,27 +9,24 @@ var ProductTable  =React.createClass({
     var lastCat = null;
 
     this.props.products.forEach(function (el, index) {
-      if(lastCat !== el.category){
-        rows.push(<ProductCategoryRow key={index+el} category={el.category}/>)
+      if(el.category === lastCat){
+        rows.push(<ProductRow product={el}/>)
+      }else {
+        rows.push(<ProductCategoryRow category={el.category}/>)
+        rows.push(<ProductRow product={el}/>)
       }
-      console.log(index);
-
-      rows.push(<ProductRow key={index+el} product={el} />);
       lastCat = el.category;
-
-    })
+    });
 
     return(
-      <table className="table">
+      <table className="table table-inverse">
         <thead>
           <tr>
             <th>Description</th>
             <th>Price</th>
           </tr>
         </thead>
-        <tbody>
-          {rows}
-        </tbody>
+        <tbody>{rows}</tbody>
       </table>
     );
   }

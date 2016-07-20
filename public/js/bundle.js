@@ -20178,17 +20178,18 @@ module.exports = FilterableProductTable;
 var React = require('react');
 
 var ProductCategoryRow = React.createClass({
-  displayName: "ProductCategoryRow",
+  displayName: 'ProductCategoryRow',
 
   render() {
+    var styles = { background: 'gray', color: 'white' };
     return React.createElement(
-      "tr",
+      'tr',
       null,
       React.createElement(
-        "th",
-        { colSpan: "2", style: { marginTop: 20 } },
+        'th',
+        { colSpan: '2', style: styles },
         React.createElement(
-          "strong",
+          'strong',
           null,
           this.props.category
         )
@@ -20206,12 +20207,12 @@ var ProductRow = React.createClass({
 	displayName: 'ProductRow',
 
 	render() {
-		var name;
+		var name = null;
 
 		if (this.props.product.stocked) {
 			name = React.createElement(
 				'td',
-				null,
+				{ style: { color: 'black' } },
 				this.props.product.name
 			);
 		} else {
@@ -20227,7 +20228,7 @@ var ProductRow = React.createClass({
 			null,
 			React.createElement(
 				'th',
-				null,
+				{ scope: 'row' },
 				name
 			),
 			React.createElement(
@@ -20255,18 +20256,18 @@ var ProductTable = React.createClass({
     var lastCat = null;
 
     this.props.products.forEach(function (el, index) {
-      if (lastCat !== el.category) {
-        rows.push(React.createElement(ProductCategoryRow, { key: index + el, category: el.category }));
+      if (el.category === lastCat) {
+        rows.push(React.createElement(ProductRow, { product: el }));
+      } else {
+        rows.push(React.createElement(ProductCategoryRow, { category: el.category }));
+        rows.push(React.createElement(ProductRow, { product: el }));
       }
-      console.log(index);
-
-      rows.push(React.createElement(ProductRow, { key: index + el, product: el }));
       lastCat = el.category;
     });
 
     return React.createElement(
       'table',
-      { className: 'table' },
+      { className: 'table table-inverse' },
       React.createElement(
         'thead',
         null,
