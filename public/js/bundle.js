@@ -20162,12 +20162,31 @@ var products = [{ category: "Sporting Goods", price: "$49.99", stocked: true, na
 var FilterableProductTable = React.createClass({
   displayName: 'FilterableProductTable',
 
+  getInitialState() {
+    return {
+      filterText: '',
+      inStockOnly: false
+    };
+  },
+  handleUserInput(filterText, inStockOnly) {
+    this.setState({
+      filterText: filterText,
+      inStockOnly: inStockOnly
+    });
+  },
   render() {
     return React.createElement(
       'div',
       { className: '' },
-      React.createElement(SearchBar, null),
-      React.createElement(ProductTable, { products: products })
+      React.createElement(SearchBar, {
+        filterText: this.state.filterText,
+        inStockOnly: this.state.inStockOnly,
+        onUserInput: this.handleUserInput
+      }),
+      React.createElement(ProductTable, { products: products,
+        filterText: this.state.filterText,
+        inStockOnly: this.state.inStockOnly
+      })
     );
   }
 });
@@ -20228,7 +20247,7 @@ var ProductRow = React.createClass({
 			null,
 			React.createElement(
 				'th',
-				{ scope: 'row' },
+				null,
 				name
 			),
 			React.createElement(
@@ -20303,16 +20322,30 @@ var React = require('react');
 var SearchBar = React.createClass({
   displayName: 'SearchBar',
 
+  handleChange() {
+    this.props.onUserInput(this.refs.filterText.value, this.refs.inStockOnly.checked);
+  },
   render() {
     return React.createElement(
-      'div',
-      { className: '' },
+      'form',
+      null,
+      React.createElement('input', {
+        type: 'text',
+        placeholder: 'Search...',
+        value: this.props.filterText,
+        ref: 'filterText',
+        onChange: this.handleChange
+      }),
       React.createElement(
-        'form',
+        'p',
         null,
-        React.createElement('input', { type: 'text' }),
-        React.createElement('br', null),
-        React.createElement('input', { type: 'checkbox' }),
+        React.createElement('input', {
+          type: 'checkbox',
+          checked: this.props.inStockOnly,
+          ref: 'inStockOnly',
+          onChange: this.handleChange
+        }),
+        ' ',
         'Only show products in stock'
       )
     );

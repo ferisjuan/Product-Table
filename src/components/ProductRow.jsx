@@ -12,7 +12,7 @@ var ProductRow = React.createClass({
 
 		return(
       <tr>
-				<th scope="row">
+				<th>
 					{name}
 				</th>
         <td>{this.props.product.price}</td>
